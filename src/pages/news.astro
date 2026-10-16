@@ -1,0 +1,26 @@
+---
+import Base from "../layouts/Base.astro";
+import { news } from "../data/content";
+---
+
+<Base
+  title="News"
+  description="Recent news from Rotaract Europe."
+>
+  <main id="content" class="wrap">
+    <header class="page-head">
+      <p class="kicker">News</p>
+      <h1>From the current year</h1>
+      <p>Five items the live site is carrying. The older posts, back to 2013 on origin.rotaracteurope.eu, are the import still to do.</p>
+    </header>
+    {
+      news.map((item) => (
+        <article class="news-item">
+          <time>{item.date}</time>
+          <h2>{item.title}</h2>
+          <p>{item.body}</p>
+        </article>
+      ))
+    }
+  </main>
+</Base>

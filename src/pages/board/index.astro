@@ -1,0 +1,35 @@
+---
+import Base from "../../layouts/Base.astro";
+import { board } from "../../data/content";
+import { href } from "../../lib/url";
+---
+
+<Base
+  title="E.R.I.C. Board"
+  description="The Rotaract Europe board elected to run the multi-district organisation this year."
+>
+  <main id="content" class="wrap">
+    <header class="page-head">
+      <p class="kicker">Board</p>
+      <h1>The people running this year</h1>
+      <p>
+        The board is elected by the country representatives. Officers volunteer: they convene the assembly, keep the books, and connect clubs that would not otherwise meet.
+      </p>
+      <p><a href={href("board/join/")}>How board positions are filled</a></p>
+    </header>
+    {
+      board.map((office) => (
+        <section class="office">
+          <h2>{office.role}</h2>
+          <p class="name">{office.name}</p>
+          <p class="muted">{office.country}</p>
+          {office.assistants.length > 0 && (
+            <p class="assist">
+              Assistants: {office.assistants.map(([name, country]) => `${name} (${country})`).join(", ")}
+            </p>
+          )}
+        </section>
+      ))
+    }
+  </main>
+</Base>

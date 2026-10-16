@@ -1,0 +1,70 @@
+---
+import Base from "../layouts/Base.astro";
+import { meetings, news } from "../data/content";
+import { href } from "../lib/url";
+---
+
+<Base
+  title="Rotaract Europe"
+  description="European Rotaract Information Centre, the multi-district organisation for Rotaract in Europe."
+>
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <p class="kicker">Since 1988</p>
+      <h1>Rotaract Europe</h1>
+      <p class="lede">
+        The European Rotaract Information Centre, E.R.I.C., is the multi-district information organisation for Rotaract in Europe. Rotary International recognised it in 1993, the first international MDIO in the Rotarian world.
+      </p>
+      <div class="actions">
+        <a class="button" href={href("countries/")}>Find a country</a>
+        <a class="button-secondary" href={href("events/")}>Next meetings</a>
+        <a class="button-secondary" href={href("impact/awards/")}>Awards 2027</a>
+      </div>
+    </div>
+  </section>
+  <main id="content" class="wrap">
+    <div class="grid-3">
+      <article class="panel">
+        <h2>Country representatives</h2>
+        <p>Each member country has a voice in the General Assembly through its country representative.</p>
+        <a class="more" href={href("countries/")}>See the 47 countries</a>
+      </article>
+      <article class="panel">
+        <h2>A board of volunteers</h2>
+        <p>The board elected by those representatives runs projects, events, money, and communication for the year.</p>
+        <a class="more" href={href("board/")}>Meet the board</a>
+      </article>
+      <article class="panel">
+        <h2>Three meetings a year</h2>
+        <p>REM in the autumn, REM in the winter, and EUCO in the spring. That is where the network votes, learns, and meets.</p>
+        <a class="more" href={href("about/")}>How E.R.I.C. works</a>
+      </article>
+    </div>
+
+    <h2>On the calendar</h2>
+    <div class="grid-2">
+      {
+        meetings.slice(0, 4).map((event) => (
+          <article class="panel">
+            <h3>{event.name}</h3>
+            <p>{event.where}</p>
+            <p class="muted">{event.when}</p>
+            <a class="more" href={event.href}>Event page</a>
+          </article>
+        ))
+      }
+    </div>
+
+    <h2>Latest</h2>
+    {
+      news.slice(0, 3).map((item) => (
+        <article class="news-item">
+          <time>{item.date}</time>
+          <h3>{item.title}</h3>
+          <p>{item.body}</p>
+        </article>
+      ))
+    }
+    <p><a href={href("news/")}>All news on this preview</a></p>
+  </main>
+</Base>

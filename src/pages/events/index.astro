@@ -1,0 +1,31 @@
+---
+import Base from "../../layouts/Base.astro";
+import { meetings } from "../../data/content";
+import { href } from "../../lib/url";
+---
+
+<Base
+  title="Events"
+  description="REM, EUCO, and how to host the next one."
+>
+  <main id="content" class="wrap">
+    <header class="page-head">
+      <p class="kicker">Events</p>
+      <h1>Meetings</h1>
+      <p>
+        Two regional meetings and one European convention each year. Several hosts already sell tickets on their own sites. Those links are the ones to use.
+      </p>
+      <p><a href={href("events/host/")}>Host a REM or EUCO</a></p>
+    </header>
+    {
+      meetings.map((event) => (
+        <article class="office">
+          <h2>{event.name}</h2>
+          <p>{event.where}. {event.when}.</p>
+          <p><a href={event.href}>Details and registration</a></p>
+        </article>
+      ))
+    }
+    <p class="muted">REM Vilnius is listed on the current menu as to be confirmed.</p>
+  </main>
+</Base>

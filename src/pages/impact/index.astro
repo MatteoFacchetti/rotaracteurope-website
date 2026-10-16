@@ -1,0 +1,31 @@
+---
+import Base from "../../layouts/Base.astro";
+import { href } from "../../lib/url";
+---
+
+<Base
+  title="Impact"
+  description="Service, peace work, and the E.R.I.C. Awards."
+>
+  <main id="content" class="wrap">
+    <header class="page-head">
+      <p class="kicker">Impact</p>
+      <h1>What clubs do with the network</h1>
+      <p class="lede">
+        The project archive from the old site, origin.rotaracteurope.eu, is not in this preview yet. These are the live programmes the current site already points people to.
+      </p>
+    </header>
+    <div class="grid-2">
+      <article class="panel">
+        <h2>United for Peace</h2>
+        <p>How clubs are asked to support communities in Lebanon, Gaza, and Ukraine, and where past peace conferences met.</p>
+        <a class="more" href={href("impact/peace/")}>Read the appeals</a>
+      </article>
+      <article class="panel">
+        <h2>E.R.I.C. Awards</h2>
+        <p>Three categories, prizes of 200, 150, and 100 euro, announced at EUCO Napoli. Applications open 17 January 2027.</p>
+        <a class="more" href={href("impact/awards/")}>Dates and rules</a>
+      </article>
+    </div>
+  </main>
+</Base>

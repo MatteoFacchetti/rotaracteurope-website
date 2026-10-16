@@ -1,0 +1,25 @@
+---
+import Base from "../layouts/Base.astro";
+import { faqs } from "../data/content";
+---
+
+<Base
+  title="Frequently asked questions"
+  description="Safety at events, MyRotary ID, twin clubs, sustainability, and global grants."
+>
+  <main id="content" class="wrap">
+    <header class="page-head">
+      <p class="kicker">FAQ</p>
+      <h1>Questions the board already answers</h1>
+      <p>Anything else: <a href="mailto:board@rotaracteurope.eu">board@rotaracteurope.eu</a>.</p>
+    </header>
+    {
+      faqs.map((item) => (
+        <article class="office">
+          <h2>{item.q}</h2>
+          <p>{item.a}</p>
+        </article>
+      ))
+    }
+  </main>
+</Base>

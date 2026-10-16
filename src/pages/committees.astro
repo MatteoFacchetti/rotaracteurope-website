@@ -1,0 +1,26 @@
+---
+import Base from "../layouts/Base.astro";
+import { committees } from "../data/content";
+---
+
+<Base
+  title="Committees"
+  description="The E.R.I.C. committees and who sits on them."
+>
+  <main id="content" class="wrap">
+    <header class="page-head">
+      <p class="kicker">Committees</p>
+      <h1>Where the work sits between meetings</h1>
+      <p>Most of the year happens in these groups, not in a ballroom. Membership is as published on the current site.</p>
+    </header>
+    {
+      committees.map((committee) => (
+        <section class="office">
+          <h2>{committee.name}</h2>
+          <p>{committee.summary}</p>
+          <p class="assist">{committee.members.join(", ")}</p>
+        </section>
+      ))
+    }
+  </main>
+</Base>

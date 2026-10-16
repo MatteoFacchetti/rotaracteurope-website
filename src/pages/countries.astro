@@ -1,0 +1,39 @@
+---
+import Base from "../layouts/Base.astro";
+import { countries } from "../data/content";
+---
+
+<Base
+  title="Countries"
+  description="Country representatives and Rotary districts in Rotaract Europe."
+>
+  <main id="content" class="wrap">
+    <header class="page-head">
+      <p class="kicker">General Assembly</p>
+      <h1>Countries</h1>
+      <p>
+        A country representative is the link between local clubs and Rotaract Europe. Together, the representatives are the General Assembly. Names below are the ones published on the current site.
+      </p>
+    </header>
+    <table>
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Districts</th>
+          <th>Representative</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          countries.map((country) => (
+            <tr>
+              <td>{country.name}</td>
+              <td>{country.districts}</td>
+              <td>{country.cr}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </main>
+</Base>
