@@ -1,0 +1,44 @@
+---
+import { displayCountry, formatProjectDate, type SpcProject } from "../lib/spc";
+
+interface Props {
+  project: SpcProject;
+}
+
+const { project } = Astro.props;
+const place = [project.city, displayCountry(project.country)].filter(Boolean).join(", ");
+const when = formatProjectDate(project.startDate) || formatProjectDate(project.endDate);
+const blurb =
+  project.summary.length > 160
+    ? `${project.summary.slice(0, 157).trimEnd()}…`
+    : project.summary;
+---
+
+<article class="project-card">
+  {
+    project.imageUrl ? (
+      <img
+        class="project-card__image"
+        src={project.imageUrl}
+        alt=""
+        loading="lazy"
+        width="640"
+        height="360"
+      />
+    ) : (
+      <div class="project-card__image project-card__image--empty" aria-hidden="true" />
+    )
+  }
+  <div class="project-card__body">
+    <p class="project-card__meta">
+      <span>{place}</span>
+      {when ? <span aria-hidden="true"> · </span> : null}
+      {when ? <time datetime={project.startDate || project.endDate || undefined}>{when}</time> : null}
+    </p>
+    <h3>{project.title}</h3>
+    {blurb ? <p>{blurb}</p> : null}
+    <a class="more" href={project.spcUrl} target="_blank" rel="noopener noreferrer">
+      Open on Service Project Center
+    </a>
+  </div>
+</article>

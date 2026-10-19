@@ -5,7 +5,9 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
+    "fetch:spc": "node scripts/fetch-spc-projects.mjs",
     "build": "astro build",
+    "build:fresh": "npm run fetch:spc && astro build",
     "preview": "astro preview"
   },
   "dependencies": {

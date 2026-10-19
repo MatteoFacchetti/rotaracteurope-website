@@ -1,28 +1,67 @@
 ---
 import Base from "../../layouts/Base.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import cached from "../../data/spc-projects.json";
+import { type SpcProjectsPayload } from "../../lib/spc";
 import { href } from "../../lib/url";
+
+const data = cached as SpcProjectsPayload;
+const featured = data.projects.filter((p) => p.imageUrl).slice(0, 6);
+const fallbackFeatured = featured.length > 0 ? featured : data.projects.slice(0, 6);
+const countryCount = new Set(data.projects.map((p) => p.country)).size;
+const fetchedLabel = new Date(data.fetchedAt).toLocaleDateString("en-GB", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
 ---
 
 <Base
   title="Impact"
-  description="Service, peace work, and the E.R.I.C. Awards."
+  description="Service projects across Europe, peace work, and the E.R.I.C. Awards."
 >
   <main id="content" class="wrap">
     <header class="page-head">
       <p class="kicker">Impact</p>
       <h1>What clubs do with the network</h1>
       <p class="lede">
-        The project archive from the old site, origin.rotaracteurope.eu, is not in this preview yet. These are the live programmes the current site already points people to.
+        Service projects from Rotaract clubs across Europe, plus the peace appeals and awards the MDIO already runs.
       </p>
     </header>
+
+    <section class="impact-projects" aria-labelledby="projects-heading">
+      <div class="impact-projects__intro">
+        <h2 id="projects-heading">Projects across Europe</h2>
+        <p>
+          {data.projectCount.toLocaleString("en-GB")} Rotaract projects in {countryCount} countries,
+          drawn from Rotary’s Service Project Center. Updated {fetchedLabel}.
+        </p>
+        <a class="button" href={href("impact/projects/")}>Browse all projects</a>
+      </div>
+      {
+        fallbackFeatured.length > 0 ? (
+          <div class="project-grid project-grid--featured">
+            {fallbackFeatured.map((project) => (
+              <ProjectCard project={project} />
+            ))}
+          </div>
+        ) : (
+          <p class="muted">
+            No projects in the current snapshot. Run <code>npm run fetch:spc</code> to refresh from SPC.
+          </p>
+        )
+      }
+    </section>
+
+    <h2>Programmes</h2>
     <div class="grid-2">
       <article class="panel">
-        <h2>United for Peace</h2>
+        <h3>United for Peace</h3>
         <p>How clubs are asked to support communities in Lebanon, Gaza, and Ukraine, and where past peace conferences met.</p>
         <a class="more" href={href("impact/peace/")}>Read the appeals</a>
       </article>
       <article class="panel">
-        <h2>E.R.I.C. Awards</h2>
+        <h3>E.R.I.C. Awards</h3>
         <p>Three categories, prizes of 200, 150, and 100 euro, announced at EUCO Napoli. Applications open 17 January 2027.</p>
         <a class="more" href={href("impact/awards/")}>Dates and rules</a>
       </article>

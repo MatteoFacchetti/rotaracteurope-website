@@ -1,0 +1,100 @@
+---
+import Base from "../../layouts/Base.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import cached from "../../data/spc-projects.json";
+import {
+  countriesInPayload,
+  displayCountry,
+  type SpcProjectsPayload,
+} from "../../lib/spc";
+import { href } from "../../lib/url";
+
+const data = cached as SpcProjectsPayload;
+const countries = countriesInPayload(data);
+const fetchedLabel = new Date(data.fetchedAt).toLocaleString("en-GB", {
+  dateStyle: "medium",
+  timeStyle: "short",
+  timeZone: "UTC",
+});
+---
+
+<Base
+  title="Service projects"
+  description="Rotaract service projects across European countries, sourced from Rotary’s Service Project Center."
+>
+  <main id="content" class="wrap">
+    <header class="page-head">
+      <p class="kicker">Impact</p>
+      <h1>European Rotaract projects</h1>
+      <p class="lede">
+        {data.projectCount.toLocaleString("en-GB")} projects with a Rotaract club as partner,
+        filtered to European countries in Rotary’s
+        <a href="https://spc.rotary.org/serviceinitiatives">Service Project Center</a>.
+        Clubs publish these listings themselves; E.R.I.C. mirrors them here so the network is easier to browse.
+      </p>
+      <p class="muted">
+        Snapshot from {fetchedLabel} UTC.
+        {
+          data.cappedCountries.length > 0 ? (
+            <>
+              {" "}
+              SPC returns at most 200 results per country, so the list may be incomplete for{" "}
+              {data.cappedCountries.map(displayCountry).join(", ")}.
+            </>
+          ) : null
+        }
+      </p>
+      <p><a href={href("impact/")}>Back to Impact</a></p>
+    </header>
+
+    <div class="project-filters" data-project-filters>
+      <label class="project-filters__label" for="project-country">Country</label>
+      <select id="project-country" name="country">
+        <option value="">All countries ({data.projectCount})</option>
+        {
+          countries.map((country) => {
+            const count = data.projects.filter((p) => p.country === country).length;
+            return (
+              <option value={country}>
+                {displayCountry(country)} ({count})
+              </option>
+            );
+          })
+        }
+      </select>
+      <p class="muted project-filters__count" data-filter-count>
+        Showing {data.projectCount} projects
+      </p>
+    </div>
+
+    <div class="project-grid" data-project-grid>
+      {
+        data.projects.map((project) => (
+          <div data-country={project.country}>
+            <ProjectCard project={project} />
+          </div>
+        ))
+      }
+    </div>
+  </main>
+</Base>
+
+<script>
+  const select = document.getElementById("project-country") as HTMLSelectElement | null;
+  const grid = document.querySelector("[data-project-grid]");
+  const countEl = document.querySelector("[data-filter-count]");
+  if (select && grid && countEl) {
+    const cards = [...grid.children] as HTMLElement[];
+    const update = () => {
+      const value = select.value;
+      let visible = 0;
+      for (const card of cards) {
+        const show = !value || card.dataset.country === value;
+        card.hidden = !show;
+        if (show) visible += 1;
+      }
+      countEl.textContent = `Showing ${visible} project${visible === 1 ? "" : "s"}`;
+    };
+    select.addEventListener("change", update);
+  }
+</script>
