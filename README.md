@@ -11,11 +11,11 @@ npm install
 npm run dev
 ```
 
-## GitHub account
+## Where it lives
 
-Publish this from **MatteoFacchetti**, not from matfac-lux. `github.com/rotaracteurope` is a user with no repositories, so this login cannot create the official remote yet. GitHub Pages on this preview will be:
+The repository is [Rotaract-Europe/rotaracteurope-website](https://github.com/Rotaract-Europe/rotaracteurope-website). GitHub Pages serves the preview at:
 
-https://matteofacchetti.github.io/rotaracteurope-website/
+https://rotaract-europe.github.io/rotaracteurope-website/
 
 The pages send `noindex` until the domain cutover.
 

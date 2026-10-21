@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 
 const onGitHub = process.env.GITHUB_ACTIONS === "true";
-const repo = process.env.GITHUB_REPOSITORY ?? "MatteoFacchetti/rotaracteurope-website";
+const repo = process.env.GITHUB_REPOSITORY ?? "Rotaract-Europe/rotaracteurope-website";
 const [owner, name] = repo.split("/");
 
 export default defineConfig({
